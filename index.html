@@ -276,6 +276,12 @@ nav.toc{font-size:15.5px}
 .tr-list button.dl.gen{border-color:#d9a3a3;color:#a33f3f;background:#fcf1f1}
 .tr-list button.dl.gen:hover{background:#f8e3e3}
 pre.pre-scroll{max-height:11em;overflow-y:scroll;border-bottom:1px dashed #bbb}
+.opt-panel{background:#f7f9f8;border:1px solid #d9e4de;border-radius:10px;padding:10px 14px;margin:-6px 0 14px}
+.opt-label{margin:6px 0 6px;font-weight:600}
+.opt-row{display:flex;gap:8px;flex-wrap:wrap}
+.opt-chip{border:1px solid #9cbcab;background:#fff;color:#1f4d3a;border-radius:999px;padding:7px 14px;font-size:15px;cursor:pointer}
+.opt-chip.on{background:#1f6f50;color:#fff;border-color:#1f6f50}
+.opt-memo{width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #bbb;border-radius:8px;font-size:15px}
 </style>
 </head>
 <body>
@@ -510,7 +516,7 @@ pre.pre-scroll{max-height:11em;overflow-y:scroll;border-bottom:1px dashed #bbb}
         <p class="mini-note">파란 글씨를 눌러 과목명을 바꾼 뒤 복사하세요. 상자 안을 스크롤하면 세특 지침 전체가 이어져 있고, 복사 버튼은 지침까지 한꺼번에 복사합니다. 자료를 첨부해 그대로 보내면 됩니다.</p>
         
         <p><b>③ 평가계획서까지 넣어 쓰기</b> (과목별 가상 평가계획서는 아래에서 받으세요)</p>
-        <div class="box glow"><div class="box-head"><span>평가계획서를 함께 넣는 요청문</span><button class="copy" type="button" data-target="p1plan">복사</button></div><pre id="p1plan" class="pre-scroll">첨부한 학생 보고서와 평가계획서로 <mark class="fname" contenteditable="true" spellcheck="false">통합사회</mark> 과목 세특을 써 줘. 평가계획서의 성취기준과 평가 요소에 비추어 학생 산출물에서 잘 드러난 부분을 근거로 쓰고, 점수는 매기지 마. 아래 세특 지침을 따라 줘.
+        <div class="box glow"><div class="box-head"><span>평가계획서를 함께 넣는 요청문</span><button class="copy" type="button" data-target="p1plan">복사</button></div><pre id="p1plan" class="pre-scroll">첨부한 학생 보고서와 평가계획서로 <mark class="fname" contenteditable="true" spellcheck="false">통합사회</mark> 과목 세특을 써 줘. 평가계획서의 성취기준과 평가 요소에 비추어 학생 산출물에서 잘 드러난 부분을 근거로 쓰고, 점수는 매기지 마. 아래 세특 지침을 따라 줘.<span id="p1plan-opt"></span>
 
 # 세특 작성 프롬프트 (근거: 2026학년도 학교생활기록부 기재요령 고등학교)
 
@@ -569,6 +575,37 @@ pre.pre-scroll{max-height:11em;overflow-y:scroll;border-bottom:1px dashed #bbb}
 
 모든 출력의 끝에 다음 문장을 붙인다.
 &quot;이 초안은 생성형 AI의 도움을 받은 것입니다. 그대로 입력하지 말고, 학생의 실제 수행과 다른 허위·과장 내용이 없는지, 기재요령 유의사항을 지켰는지 교사가 확인한 뒤 입력하십시오.&quot; (p.19)</pre></div>
+        <div class="opt-panel" id="opt-plan">
+          <p class="opt-label">문체 고르기 <span class="mini-note">(하나를 누르면 요청문에 들어가고, 다시 누르면 빠집니다)</span></p>
+          <div class="opt-row">
+            <button type="button" class="opt-chip" data-style="문체: 담백한 관찰형으로, 활동에서 확인된 사실을 중심으로 짧고 간결하게 써 줘. (예: 자료의 수치를 비교해 차이를 표로 정리함.)">담백한 관찰형</button>
+            <button type="button" class="opt-chip" data-style="문체: 역량 강조형으로, 활동에서 드러난 역량(분석력, 문제 해결력, 자료 활용 능력 등)을 앞세워 써 줘. (예: 수치를 비교해 근거를 세우는 분석력이 돋보임.)">역량 강조형</button>
+            <button type="button" class="opt-chip" data-style="문체: 성장 강조형으로, 활동 전후의 변화와 스스로 깨달은 점이 드러나게 써 줘. (예: 처음에는 막연하게 계획했으나 자료를 분석하며 구체적인 목표를 세우게 됨.)">성장 강조형</button>
+          </div>
+          <p class="opt-label">관찰 메모 <span class="mini-note">(선택, 수업에서 직접 본 사실 한 줄)</span></p>
+          <input type="text" class="opt-memo" placeholder="예: 모둠 발표에서 적금과 펀드의 차이를 예를 들어 설명함">
+        </div>
+        <script>
+        (function(){
+          var root = document.getElementById('opt-plan'), out = document.getElementById('p1plan-opt'); if(!root || !out) return;
+          var style = '', memo = root.querySelector('.opt-memo');
+          function render(){
+            var lines = [];
+            if(style) lines.push(style);
+            var m = (memo.value || '').trim(); if(m) lines.push('관찰 메모(교사가 수업에서 직접 본 사실): ' + m);
+            out.textContent = lines.length ? '\n' + lines.join('\n') : '';
+          }
+          root.querySelectorAll('.opt-chip').forEach(function(b){
+            b.addEventListener('click', function(){
+              var on = b.classList.contains('on');
+              root.querySelectorAll('.opt-chip').forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-pressed','false'); });
+              if(!on){ b.classList.add('on'); b.setAttribute('aria-pressed','true'); style = b.dataset.style; } else { style = ''; }
+              render();
+            });
+          });
+          memo.addEventListener('input', render);
+        })();
+        </script>
         <p class="mini-note">이 상자도 스크롤하면 세특 지침 전체가 이어져 있고, 복사 버튼으로 한꺼번에 복사됩니다. 관찰 메모가 있으면 붙여 넣은 뒤 "관찰 메모: ..." 한두 줄을 더하세요. 평가계획서는 연수용 가상 예시이며, 일본어만 교육부 고시 원문 성취기준을 넣었습니다.</p>
         <ul class="tight tr-list">
           <li><b>통합사회</b> · 금융 생활 설계 포트폴리오 <span class="mini-note">(손글씨 2쪽)</span><br><span class="mini-note">공통과목이라 통합사회1·2를 합쳐 500자 이내입니다.</span><span class="btn-row"><button class="dl gen" type="button" data-gen="tr1" data-name="통합사회_금융생활설계포트폴리오_손글씨_가상학생.pdf" hidden>통합사회 자료 받기</button><button class="dl openv" type="button" data-open="tr1" data-title="통합사회 자료 (가상 학생)" hidden>탭으로 열기</button><button class="dl gen" type="button" data-gen="pl1" data-name="통합사회_평가계획_금융생활설계_예시.docx" hidden>평가계획 받기</button></span></li>
