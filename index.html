@@ -1362,7 +1362,7 @@ details.res-tog{margin:4px 0 14px;background:#fff}
   if(true){
     dlReady.then(function(dl){
       if(!dl) return;
-      document.querySelectorAll('button.dl:not(.gen)').forEach(function(b){
+      document.querySelectorAll('button.dl:not(.gen):not(.openv)').forEach(function(b){
         b.hidden = false;
         b.addEventListener('click', function(){
           var p;
@@ -1379,7 +1379,7 @@ details.res-tog{margin:4px 0 14px;background:#fff}
             if(err && err.message === 'fetch'){ say('파일을 불러오지 못했습니다. 잠시 후 다시 눌러 주세요.'); return; }
             if(code === 'declined') say('저장을 취소했습니다.');
             else if(code === 'rate_limited') say('잠시 후 다시 눌러 주세요.');
-            else { say('이 화면에서는 파일 받기를 쓸 수 없습니다. 복사 버튼을 이용하세요.'); document.querySelectorAll('button.dl:not(.gen)').forEach(function(x){ x.hidden = true; }); }
+            else { say('이 화면에서는 파일 받기를 쓸 수 없습니다. 복사 버튼을 이용하세요.'); document.querySelectorAll('button.dl:not(.gen):not(.openv)').forEach(function(x){ x.hidden = true; }); }
           });
         });
       });
