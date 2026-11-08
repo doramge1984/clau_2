@@ -269,6 +269,10 @@ nav.toc{font-size:15.5px}
 .viewer-x{border:1px solid #bbb;background:#f6f6f6;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:15px}
 .viewer-box iframe{flex:1;border:0;width:100%}
 .tr-list .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.ocr-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:8px 0 18px}
+.ocr-pair figure{margin:0}
+.ocr-pair img{width:100%;height:420px;object-fit:cover;object-position:top;border:1px solid #ccc;border-radius:8px;cursor:zoom-in}
+.ocr-pair figcaption{font-size:14px;color:#555;margin-top:4px}
 </style>
 </head>
 <body>
@@ -429,6 +433,17 @@ nav.toc{font-size:15.5px}
         <p><b>① 먼저 글씨를 다 읽는지 확인하기</b> (손글씨 자료일 때 추천)</p>
         <div class="box glow"><div class="box-head"><span>읽기 확인 요청문</span><button class="copy" type="button" data-target="p1ocr">복사</button></div><pre id="p1ocr">첨부한 학생 손글씨를 빠짐없이 그대로 옮겨 적어 줘. 고치거나 줄이지 말고, 읽기 어려운 글자는 추측하지 말고 [?]로 표시해 줘. 마지막에 [?]로 표시한 곳만 모아서 몇 쪽 어디인지 알려 줘.</pre></div>
         <p class="mini-note">[?]로 표시된 곳만 원본과 대조하면 됩니다. 확인이 끝나면 같은 채팅에서 아래 요청문으로 세특을 씁니다.</p>
+        <p><b>실제로 해 본 결과</b> (사진을 누르면 원래 크기로 커지고, 스크롤하며 볼 수 있습니다)</p>
+        <p class="mini-note">화학 실험보고서: 손글씨, 표, 수식까지 옮기고 애매한 12곳을 [?]로 모아 알려 줍니다.</p>
+        <div class="ocr-pair">
+          <figure class="check-shot wide"><img src="img/ocr_chem_src.jpg" alt="화학 실험보고서 손글씨 원본(가상 학생)"><figcaption>원본 손글씨</figcaption></figure>
+          <figure class="check-shot wide"><img src="img/ocr_chem_out.jpg" alt="클로드가 화학 보고서를 옮겨 적은 결과"><figcaption>클로드가 옮긴 결과</figcaption></figure>
+        </div>
+        <p class="mini-note">통합사회 포트폴리오: 2쪽을 모두 옮기고, 읽기 어려운 4곳만 따로 알려 줍니다.</p>
+        <div class="ocr-pair">
+          <figure class="check-shot wide"><img src="img/ocr_ts_src.jpg" alt="통합사회 포트폴리오 손글씨 원본(가상 학생)"><figcaption>원본 손글씨</figcaption></figure>
+          <figure class="check-shot wide"><img src="img/ocr_ts_out.jpg" alt="클로드가 통합사회 포트폴리오를 옮겨 적은 결과"><figcaption>클로드가 옮긴 결과</figcaption></figure>
+        </div>
         <p><b>② 세특 쓰기</b></p>
         <div class="box glow"><div class="box-head"><span>요청문 (과목명만 바꾸기)</span><button class="copy" type="button" data-target="p1tr">복사</button></div><pre id="p1tr">첨부한 학생 보고서로 <mark class="fname" contenteditable="true" spellcheck="false">통합사회</mark> 과목 세특을 써 줘. 아래 세특 지침을 따라 줘.</pre></div>
         <p class="mini-note">파란 글씨를 눌러 과목명을 바꾼 뒤 복사하세요. 그 아래에 위 지침 전체를 붙여 넣고 자료를 첨부해 보냅니다.</p>
