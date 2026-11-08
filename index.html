@@ -594,23 +594,31 @@ pre.pre-scroll{max-height:11em;overflow-y:scroll;border-bottom:1px dashed #bbb}
             <button type="button" class="opt-chip" data-style="문체: 역량 강조형으로, 활동에서 드러난 역량(분석력, 문제 해결력, 자료 활용 능력 등)을 앞세워 써 줘. (예: 수치를 비교해 근거를 세우는 분석력이 돋보임.)">역량 강조형</button>
             <button type="button" class="opt-chip" data-style="문체: 성장 강조형으로, 활동 전후의 변화와 스스로 깨달은 점이 드러나게 써 줘. (예: 처음에는 막연하게 계획했으나 자료를 분석하며 구체적인 목표를 세우게 됨.)">성장 강조형</button>
           </div>
-          <p class="opt-label">관찰 메모 <span class="mini-note">(선택, 수업에서 직접 본 사실 한 줄)</span></p>
+          <p class="opt-label">관찰 메모 <span class="mini-note">(여러 개 고를 수 있어요. 실제로 본 것만 고르고, 아래 칸에 직접 써도 됩니다)</span></p>
+          <div class="opt-row" style="margin-bottom:8px"><button type="button" class="opt-chip memo-chip" data-memo="수업 중 궁금한 점을 질문하며 개념을 확인함">질문</button><button type="button" class="opt-chip memo-chip" data-memo="모둠 발표에서 자신의 생각을 예를 들어 설명함">발표</button><button type="button" class="opt-chip memo-chip" data-memo="모둠 활동에서 친구의 의견을 듣고 역할을 나누어 맡음">협력</button><button type="button" class="opt-chip memo-chip" data-memo="피드백을 받은 뒤 과제를 스스로 고쳐 다시 제출함">고쳐 쓰기</button><button type="button" class="opt-chip memo-chip" data-memo="추가 자료를 스스로 찾아 근거를 보완함">자료 찾기</button><button type="button" class="opt-chip memo-chip" data-memo="활동 시간 끝까지 과제에 몰입해 완성함">끝까지</button></div>
           <input type="text" class="opt-memo" placeholder="예: 모둠 발표에서 적금과 펀드의 차이를 예를 들어 설명함">
         </div>
         <script>
         (function(){
           var root = document.getElementById('opt-plan'), out = document.getElementById('p1plan-opt'); if(!root || !out) return;
-          var style = '', memo = root.querySelector('.opt-memo');
+          var style = '', memo = root.querySelector('.opt-memo'), picked = [];
           function render(){
             var lines = [];
             if(style) lines.push(style);
-            var m = (memo.value || '').trim(); if(m) lines.push('관찰 메모(교사가 수업에서 직접 본 사실): ' + m);
+            var ms = picked.slice(); var m = (memo.value || '').trim(); if(m) ms.push(m); if(ms.length) lines.push('관찰 메모(교사가 수업에서 직접 본 사실): ' + ms.join(' / '));
             out.textContent = lines.length ? '\n' + lines.join('\n') : '';
           }
-          root.querySelectorAll('.opt-chip').forEach(function(b){
+          root.querySelectorAll('.memo-chip').forEach(function(b){
+            b.addEventListener('click', function(){
+              var v = b.dataset.memo, i = picked.indexOf(v);
+              if(i < 0){ picked.push(v); b.classList.add('on'); b.setAttribute('aria-pressed','true'); } else { picked.splice(i,1); b.classList.remove('on'); b.setAttribute('aria-pressed','false'); }
+              render();
+            });
+          });
+          root.querySelectorAll('.opt-chip:not(.memo-chip)').forEach(function(b){
             b.addEventListener('click', function(){
               var on = b.classList.contains('on');
-              root.querySelectorAll('.opt-chip').forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-pressed','false'); });
+              root.querySelectorAll('.opt-chip:not(.memo-chip)').forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-pressed','false'); });
               if(!on){ b.classList.add('on'); b.setAttribute('aria-pressed','true'); style = b.dataset.style; } else { style = ''; }
               render();
             });
