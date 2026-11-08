@@ -318,6 +318,10 @@ details.ref.tr-glow>summary::marker,details.ref.tr-glow>summary::before{color:#f
 details.ref.tr-glow{border-color:#b71c1c!important;box-shadow:0 0 0 4px rgba(183,28,28,.15),0 0 26px rgba(183,28,28,.45)!important}
 p.big-gap{margin-top:9em!important;padding-top:1.4em;border-top:1px dashed #c9d8cf}
 .side-wrap.gap-3{margin-top:5em!important}
+.opt-preview{margin-top:10px;padding:10px 12px;border:1px dashed #1f6f50;border-radius:8px;background:#fff;font-size:14.5px;line-height:1.6}
+.opt-preview span{color:#1f6f50;background:#e3f3ea;font-weight:600}
+@keyframes optflash{0%{background:#ffe082}100%{background:#e3f3ea}}
+#p1plan-opt.flash{animation:optflash 1.2s ease-out}
 </style>
 </head>
 <body>
@@ -634,6 +638,7 @@ p.big-gap{margin-top:9em!important;padding-top:1.4em;border-top:1px dashed #c9d8
           <p class="opt-label">관찰 메모 <span class="mini-note">(여러 개 고를 수 있어요. 실제로 본 것만 고르고, 아래 칸에 직접 써도 됩니다)</span></p>
           <div class="opt-row" style="margin-bottom:8px"><button type="button" class="opt-chip memo-chip" data-memo="수업 중 궁금한 점을 질문하며 개념을 확인함">질문</button><button type="button" class="opt-chip memo-chip" data-memo="모둠 발표에서 자신의 생각을 예를 들어 설명함">발표</button><button type="button" class="opt-chip memo-chip" data-memo="모둠 활동에서 친구의 의견을 듣고 역할을 나누어 맡음">협력</button><button type="button" class="opt-chip memo-chip" data-memo="피드백을 받은 뒤 과제를 스스로 고쳐 다시 제출함">고쳐 쓰기</button><button type="button" class="opt-chip memo-chip" data-memo="추가 자료를 스스로 찾아 근거를 보완함">자료 찾기</button><button type="button" class="opt-chip memo-chip" data-memo="활동 시간 끝까지 과제에 몰입해 완성함">끝까지</button></div>
           <input type="text" class="opt-memo" placeholder="예: 모둠 발표에서 적금과 펀드의 차이를 예를 들어 설명함">
+          <div id="opt-preview" class="opt-preview"><b>요청문에 들어간 문장</b>: 아직 없음. 버튼을 누르면 여기와 위 상자에 초록색으로 나타납니다.</div>
         </div>
         <script>
         (function(){
@@ -644,6 +649,10 @@ p.big-gap{margin-top:9em!important;padding-top:1.4em;border-top:1px dashed #c9d8
             if(style) lines.push(style);
             var ms = picked.slice(); var m = (memo.value || '').trim(); if(m) ms.push(m); if(ms.length) lines.push('관찰 메모(교사가 수업에서 직접 본 사실): ' + ms.join(' / '));
             out.textContent = lines.length ? '\n' + lines.join('\n') : '';
+            var pv = document.getElementById('opt-preview');
+            if(pv){ pv.innerHTML = lines.length ? '<b>요청문에 들어간 문장</b> (위 상자의 초록색 부분)<br>' + lines.map(function(l){ return '<span>' + l.replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }) + '</span>'; }).join('<br>') : '<b>요청문에 들어간 문장</b>: 아직 없음. 버튼을 누르면 여기와 위 상자에 초록색으로 나타납니다.'; }
+            var pre = out.closest('pre'); if(pre && lines.length){ pre.scrollTop = 0; }
+            out.classList.remove('flash'); void out.offsetWidth; if(lines.length) out.classList.add('flash');
           }
           root.querySelectorAll('.memo-chip').forEach(function(b){
             b.addEventListener('click', function(){
