@@ -300,6 +300,11 @@ main>section.tab-off{display:none}
 .tab-next{display:flex;justify-content:flex-end;margin:40px 0 10px}
 .tab-next button{border:1px solid #1f6f50;background:#1f6f50;color:#fff;border-radius:10px;padding:12px 18px;font-size:16px;cursor:pointer}
 @media print{main>section.tab-off{display:block}.tabbar,.tab-next{display:none}}
+#so18 .btn-row{display:flex;gap:8px;flex-wrap:wrap}
+nav.toc{display:none!important}
+.layout{grid-template-columns:minmax(0,1fr)!important;gap:0!important;max-width:1080px}
+.tabbar{flex-wrap:nowrap!important;overflow-x:auto;gap:6px;scrollbar-width:thin}
+.tab-btn{white-space:nowrap;flex:0 0 auto;padding:8px 12px;font-size:14.5px}
 </style>
 </head>
 <body>
@@ -780,6 +785,7 @@ main>section.tab-off{display:none}
       </div>
 
 
+
       <h3>① 일을 시킬 폴더 만들기</h3>
       <div class="folder-row">
         <p>바탕화면 등 찾기 쉬운 곳에 <b>'교과세특데이터정리'</b> 폴더를 하나 만듭니다. 바탕화면 빈 곳을 오른쪽 클릭 → 새로 만들기 → 폴더를 누르고 이름을 입력하세요. 클로드는 연결한 이 폴더 안에서만 일합니다.</p>
@@ -1163,6 +1169,9 @@ main>section.tab-off{display:none}
 <li><b>반 단위로 나눕니다</b>: 정리할 때부터 '1반_정리.xlsx'처럼 반별 파일로 저장하고, 반마다 채팅을 따로 엽니다(3단계 '여러 반을 쓸 때').</li>
 <li><b>한 반은 한 번에</b>: 한 반(25~30명)은 클로드가 학생을 몇 묶음으로 나눠 동시에 씁니다. 세특 스킬도 이 방식으로 만들어져 있습니다.</li>
 <li><b>먼저 한 반으로 시험</b>: 첫 반 결과를 확인하고 요청문을 다듬은 뒤 나머지 반에 같은 요청문을 씁니다.</li>
+<li><b>규칙은 프로젝트에 한 번만</b>: 세특 지침과 평가계획서는 프로젝트에 넣어 두고, 반마다 채팅에서는 짧게 요청합니다. 사용량도 아낄 수 있습니다.</li>
+<li><b>끊기면 이어서</b>: 결과가 길어 중간에 멈추면 "이어서 써 줘"라고 하면 됩니다. 결과를 엑셀로 받으면 나눠서 해도 한 파일로 모을 수 있습니다.</li>
+<li><b>표본 3명 확인</b>: 앞, 중간, 끝에서 한 명씩 골라 원본과 대조하세요.</li>
 </ul>
       </details>
       <details class="ref qa"><summary>Q5. 과제를 PPT나 한글(HWP) 파일로 받아요.</summary>
@@ -1597,8 +1606,8 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var z=doc
   document.querySelectorAll('button.openv').forEach(function(b){
     b.hidden = false;
     b.addEventListener('click', function(){
-      var v = VIEW[b.dataset.open]; if(!v) return;
-      var url = URL.createObjectURL(new Blob([b64ToBytes(data()[v[0] + '_b64'])], {type: v[1]}));
+      var url;
+      if(b.dataset.url){ url = b.dataset.url; } else { var v = VIEW[b.dataset.open]; if(!v) return; url = URL.createObjectURL(new Blob([b64ToBytes(data()[v[0] + '_b64'])], {type: v[1]})); }
       var w = null; try { w = window.open(url, '_blank'); } catch(e) { w = null; }
       if(!w) showInPage(url, b.dataset.title || '');
     });
