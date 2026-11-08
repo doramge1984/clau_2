@@ -256,6 +256,13 @@ footer ul{padding-left:18px;margin:6px 0}
 ol.tight,ul.tight{margin:6px 0 0;padding-left:20px;font-size:15px}
 .sr{position:absolute;left:-9999px}
 @media (max-width:860px){.cards3,.cards2{grid-template-columns:1fr}}
+
+nav.toc{font-size:15.5px}
+.fs-ctrl{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;gap:6px;align-items:center;background:#fff;border:1px solid #ccc;border-radius:999px;padding:6px 8px;box-shadow:0 2px 10px rgba(0,0,0,.15);font-size:14px}
+.fs-ctrl button{border:1px solid #1f6f50;background:#e8f3ee;color:#1f4d3a;border-radius:999px;min-width:44px;height:40px;padding:0 14px;font-size:16px;font-weight:700;cursor:pointer}
+.fs-ctrl button:hover{background:#eaeaea}
+.fs-ctrl .fs-val{min-width:44px;text-align:center;color:#444}
+@media print{.fs-ctrl{display:none}}
 </style>
 </head>
 <body>
@@ -1039,6 +1046,22 @@ ol.tight,ul.tight{margin:6px 0 0;padding-left:20px;font-size:15px}
       <p class="src">출처: <a href="https://support.google.com/docs/answer/15877199?hl=ko" target="_blank" rel="noopener">Google Sheets에서 AI 함수 사용하기</a> · <a href="https://workspaceupdates.googleblog.com/2025/09/ai-function-google-sheets-new-languages.html" target="_blank" rel="noopener">AI 함수 한국어 지원·대상 요금제</a> · <a href="https://support.google.com/gemininotebook/answer/16215270?hl=ko" target="_blank" rel="noopener">제미나이노트북 소스 추가와 지원 형식</a> · <a href="https://workspaceupdates.googleblog.com/2025/12/transform-sources-structured-data-tables-notebooklm.html" target="_blank" rel="noopener">제미나이노트북 데이터 표</a></p>
     </section>
   </main>
+<div class="fs-ctrl" role="group" aria-label="글자 크기">
+  <button type="button" id="fs-down" aria-label="글자 작게">글자 작게</button>
+  <span class="fs-val" id="fs-val">100%</span>
+  <button type="button" id="fs-up" aria-label="글자 크게">글자 크게</button>
+</div>
+<script>
+(function(){
+  var steps=[100,115,130,150,170,200], i=1, m=document.querySelector('main'), v=document.getElementById('fs-val');
+  try{var s=parseInt(localStorage.getItem('fsStep2'),10); if(s>=0&&s<steps.length) i=s;}catch(e){}
+  function apply(){ if(m) m.style.zoom=steps[i]/100; v.textContent=steps[i]+'%'; try{localStorage.setItem('fsStep2',i);}catch(e){} }
+  document.getElementById('fs-up').onclick=function(){ if(i<steps.length-1){i++;apply();} };
+  document.getElementById('fs-down').onclick=function(){ if(i>0){i--;apply();} };
+  apply();
+})();
+</script>
+
 </div>
 
 <footer>
