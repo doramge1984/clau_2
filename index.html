@@ -327,6 +327,45 @@ details.step3-tog{margin:8px 0 18px}
 .step3-tog .shots .shot{height:auto!important;aspect-ratio:auto!important}
 .step3-tog .shot.filled img{height:auto!important;object-fit:contain!important;flex:none}
 .s3-guide{margin:12px 0 6px!important}
+
+/* 강사 소개 (여주초 교안에서 가져와 초록·분필 색으로) */
+.instructor{margin:0 0 40px}
+.ins-banner{position:relative;overflow:hidden;background:linear-gradient(135deg,#173b30 0%,#1f4d3f 60%,#265a4a 100%);border:1px solid #2f6352;border-top:3px solid #f2c94c;border-radius:16px;padding:26px 28px;box-shadow:0 10px 30px rgba(20,40,30,.18)}
+.ins-banner::after{content:"";position:absolute;top:-40%;right:-4%;width:36%;height:180%;background:linear-gradient(115deg,rgba(255,255,255,0),rgba(242,201,76,.13) 50%,rgba(255,255,255,0));transform:skewX(-16deg);pointer-events:none}
+.ins-kicker{position:relative;z-index:1;font-size:13px;letter-spacing:.14em;color:#e6c35a;font-weight:700;margin-bottom:8px}
+.ins-name{position:relative;z-index:1;font-family:var(--display);font-size:29px;font-weight:800;color:#f6e7b0;line-height:1.15}
+.ins-name span{font-family:var(--body);font-size:16px;font-weight:400;color:#b9cfc6;margin-left:9px}
+.ins-chips{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.ins-chip{background:rgba(255,255,255,.07);border:1px solid rgba(242,201,76,.38);color:#e7efea;border-radius:22px;padding:8px 15px;font-size:14.5px;font-weight:500}
+.ins-chip b{color:#f6e7b0;font-weight:700}
+.ins-div{position:relative;z-index:1;height:1px;background:linear-gradient(90deg,rgba(242,201,76,.5),rgba(242,201,76,0));margin:18px 0}
+.ins-contact{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:10px}
+.ins-pill{background:rgba(255,255,255,.07);border:1px solid rgba(242,201,76,.38);color:#f6e7b0!important;border-radius:22px;padding:9px 16px;font-size:15px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.ins-pill:hover{background:rgba(242,201,76,.16)}
+.ins-cta{background:#f2c94c;border-color:#f2c94c;color:#1c2622!important}
+.ins-cta:hover{filter:brightness(1.06)}
+.ins-toggle{margin-top:12px;width:100%;display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:15px 20px;font-size:16.5px;font-weight:700;color:var(--ink);cursor:pointer;font-family:inherit;transition:.15s}
+.ins-toggle:hover{border-color:var(--board)}
+.ins-plus{color:var(--board);font-size:22px;font-weight:700;line-height:1;transition:transform .2s}
+.instructor.open .ins-plus{transform:rotate(45deg)}
+.ins-tag{margin-left:auto;font-size:13px;font-weight:700;color:var(--board);background:var(--board-soft);border:1px solid var(--line);border-radius:16px;padding:5px 12px}
+.ins-more{display:none}
+.instructor.open .ins-more{display:block}
+.ins-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 34px;margin-top:12px;background:linear-gradient(140deg,#173b30,#1f4d3f 60%,#265a4a);border:1px solid #2f6352;border-radius:14px;padding:24px 26px}
+.ins-col.ins-wide{grid-column:1 / -1}
+.ins-col h4{margin:0 0 10px;font-size:16px;color:#f6e7b0;border-bottom:1px solid #2f6352;padding-bottom:7px;font-weight:700}
+.ins-col ul{margin:0;padding-left:18px}
+.ins-col li{margin:7px 0;font-size:15.5px;line-height:1.65;color:#dbe7e1}
+.ins-col li b{color:#f6e7b0;font-weight:700}
+@media (max-width:720px){.ins-grid{grid-template-columns:1fr}.ins-col.ins-wide{grid-column:auto}.ins-banner{padding:22px 20px}.ins-name{font-size:25px}}
+/* 패들렛 */
+.padbar{margin:40px 0 10px;padding:22px 20px;text-align:center;border:1.5px solid #c9a544;border-radius:16px;background:linear-gradient(160deg,#fff8e1,#fcefc2)}
+.padbar .pb-t{font-weight:800;font-size:19px;color:#4a3708;margin:0}
+.padbar p{margin:6px 0 14px;color:#5b4a1e}
+.padbar .pb-a{display:inline-block;padding:12px 28px;border-radius:12px;background:#c9a13b;color:#1b1405;font-weight:800;text-decoration:none;box-shadow:0 3px 0 rgba(120,90,20,.35)}
+.padbar .pb-a:hover{background:#e7cb7a}
+.padbar .pb-frame{margin-top:18px;border-radius:12px;overflow:hidden;border:1px solid #e2cb83;background:#fff}
+.padbar iframe{display:block;width:100%;height:600px;border:0}
 </style>
 </head>
 <body>
@@ -360,6 +399,7 @@ details.step3-tog{margin:8px 0 18px}
   <main>
     <div class="tabbar" role="tablist" aria-label="단계"><button type="button" class="tab-btn" role="tab" data-tab="flow"><span class="t">00</span>흐름과 준비</button><button type="button" class="tab-btn" role="tab" data-tab="step1"><span class="t">01</span>일반 채팅</button><button type="button" class="tab-btn" role="tab" data-tab="step2"><span class="t">02</span>데이터 정제</button><button type="button" class="tab-btn" role="tab" data-tab="step3"><span class="t">03</span>프로젝트</button><button type="button" class="tab-btn" role="tab" data-tab="step4"><span class="t">04</span>내 세특 스킬</button><button type="button" class="tab-btn" role="tab" data-tab="qa"><span class="t">Q</span>질문에 답하기</button><button type="button" class="tab-btn" role="tab" data-tab="end"><span class="t">·</span>마치며</button><button type="button" class="tab-btn" role="tab" data-tab="tips"><span class="t">+</span>추가 팁</button></div>
     <section id="flow" aria-labelledby="h-flow">
+      <div class="instructor"><div class="ins-banner"><div class="ins-kicker">INSTRUCTOR · 강사</div><div class="ins-name">이애진 <span>Lee Ae-jin</span></div><div class="ins-chips"><span class="ins-chip">구글 공식 PD 파트너사 · <b>FlowDX 대표</b></span><span class="ins-chip">구글 공식 트레이너 (Google Certified Trainer)</span><span class="ins-chip">🎓 서울대학교 정보문화학(ICT)</span></div><div class="ins-div"></div><div class="ins-contact"><a class="ins-pill" href="https://flowdx.kr" target="_blank" rel="noopener">🌐 flowdx.kr</a><a class="ins-pill" href="mailto:ai@flowdx.kr">✉ ai@flowdx.kr</a><a class="ins-pill" href="tel:01023198419">☎ 010-2319-8419</a><a class="ins-pill ins-cta" href="https://capable-tarsier-97affe.netlify.app/" target="_blank" rel="noopener">🔗 프로필 보기</a></div></div><button class="ins-toggle" type="button" onclick="this.closest('.instructor').classList.toggle('open')"><span class="ins-plus">+</span> 강사 상세 이력 보기<span class="ins-tag">학력 · 경력 · 저서</span></button><div class="ins-more"><div class="ins-grid"><div class="ins-col"><h4>🎓 학력 · 자격</h4><ul><li>서울대학교 정보문화학(ICT)</li><li><b>구글 공식 PD 파트너사</b> (Google PD Partner)</li><li>Google Certified Trainer (구글 공식 트레이너)</li><li>Gemini Certified Educator (제미나이 에듀케이터)</li><li>ADsP · 데이터 분석 준전문가</li></ul></div><div class="ins-col"><h4>📰 언론 보도 · 공식 성과</h4><ul><li>중앙뉴스타임스(2025.11) · 인천시교육청 교육연수원 직무연수</li><li>인천광역시교육청(2025.12) · 초·중등 교실수업혁명 직무연수 운영</li><li>미디어투데이(2025.07) · 파주교육지원청 AI 소통 역량 강화·실무 적용</li></ul></div><div class="ins-col ins-wide"><h4>🏫 교육 · 행정 혁신 주요 경력</h4><ul><li>구글 코리아 <b>제미나이 아카데미 주강사</b></li><li>전국 학교장·교감 교원 대상 <b>AI 리터러시 리더십 연수 200회+</b></li><li>대학 교직원·교수·학생 대상 AI 행정 혁신 연수</li><li><b>고려대·성균관대·숙명여대·한양대</b> 등 대학 연수</li><li><b>용인·이천교육지원청</b> AI 연수</li><li><b>경기도교육연구원 박사급 연구원</b> 대상 정책연구 AI 활용 연수</li><li>5~9급 교육행정직 공무원 <b>AI 정책보고서 연수</b></li><li>한국과학창의재단 ‘찾아가는 학교컨설팅’ 코디네이터·주강사</li><li>대원외고 등 특목고 AI 연수 및 영재교육연구소 강사 양성 연수</li></ul></div><div class="ins-col"><h4>💼 산업 현장 실무</h4><ul><li><b>FlowDX 대표</b> — AI 비즈니스 모델링·공공기관 DX 전환 컨설팅 총괄</li><li>Ebay·G마켓·옥션 해외 플랫폼 개발 프로젝트 기획 참여</li><li>Nexon·Ebay 등 글로벌 기업 주요 프로젝트 기획·개발</li></ul></div><div class="ins-col"><h4>📚 주요 저서</h4><ul><li>『HTML, CSS, JavaScript를 배우는 마법코딩학교』</li><li>『AI시대, 보고서가 당신의 무기가 된다』</li><li>『AI 기반 문화콘텐츠 기획』</li></ul></div></div></div></div>
       <p class="step-no">00</p>
       <h2 id="h-flow">오늘의 흐름과 준비</h2>
       <p>세특 업무는 <b>자료 정리 → 초안 작성 → 점검</b>의 순서로 흘러갑니다. 오늘은 이 업무를 클로드의 도구를 하나씩 넓혀 가며 해 봅니다.</p>
@@ -376,6 +416,12 @@ details.step3-tog{margin:8px 0 18px}
         <div class="card"><span class="badge">폴더</span><h4>작업 폴더 만들기</h4><p>바탕화면에 '교과세특데이터정리' 폴더를 만들어 두세요. 실습 자료는 각 단계에서 받아 이 폴더에 넣습니다.</p></div>
       </div>
 
+          <div class="padbar">
+        <p class="pb-t">📌 패들렛</p>
+        <p>질문, 결과 화면, 소감을 자유롭게 남겨 주세요.</p>
+        <a class="pb-a" href="https://padlet.com/doramge1984/joo-is-7654321-2488m8n3ebdrgo1x" target="_blank" rel="noopener">패들렛 열기 ↗</a>
+        <div class="pb-frame"><iframe src="https://padlet.com/embed/2488m8n3ebdrgo1x" title="패들렛" loading="lazy" allow="camera;microphone;geolocation;display-capture;clipboard-write"></iframe></div>
+      </div>
     </section>
 
     <section id="step1" aria-labelledby="h-1">
