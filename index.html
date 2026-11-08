@@ -290,6 +290,16 @@ details.ref.tr-glow>summary{color:#9b3b3b}
 .box.glow-red.no-gap{margin-top:8px}
 details.res-tog{margin:4px 0 14px;background:#fff}
 pre#p2{color:#c62828}
+main>section.tab-off{display:none}
+.tabbar{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;gap:6px;background:var(--bg,#f5f5f2);padding:10px 0 10px;margin-bottom:18px;border-bottom:2px solid #d9e4de}
+.tab-btn{border:1px solid #c9d8cf;background:#fff;border-radius:999px;padding:8px 14px;font-size:15px;cursor:pointer;color:#1f4d3a}
+.tab-btn .t{font-family:var(--mono);margin-right:6px;font-size:13px;color:#4c7a64}
+.tab-btn.on{background:#1f6f50;color:#fff;border-color:#1f6f50}
+.tab-btn.on .t{color:#cfe8dc}
+.toc a.on{background:var(--board-soft);font-weight:700}
+.tab-next{display:flex;justify-content:flex-end;margin:40px 0 10px}
+.tab-next button{border:1px solid #1f6f50;background:#1f6f50;color:#fff;border-radius:10px;padding:12px 18px;font-size:16px;cursor:pointer}
+@media print{main>section.tab-off{display:block}.tabbar,.tab-next{display:none}}
 </style>
 </head>
 <body>
@@ -321,6 +331,7 @@ pre#p2{color:#c62828}
   </nav>
 
   <main>
+    <div class="tabbar" role="tablist" aria-label="단계"><button type="button" class="tab-btn" role="tab" data-tab="flow"><span class="t">00</span>흐름과 준비</button><button type="button" class="tab-btn" role="tab" data-tab="step1"><span class="t">01</span>일반 채팅</button><button type="button" class="tab-btn" role="tab" data-tab="step2"><span class="t">02</span>데이터 정제</button><button type="button" class="tab-btn" role="tab" data-tab="step3"><span class="t">03</span>프로젝트</button><button type="button" class="tab-btn" role="tab" data-tab="step4"><span class="t">04</span>내 세특 스킬</button><button type="button" class="tab-btn" role="tab" data-tab="qa"><span class="t">Q</span>질문에 답하기</button><button type="button" class="tab-btn" role="tab" data-tab="end"><span class="t">·</span>마치며</button><button type="button" class="tab-btn" role="tab" data-tab="tips"><span class="t">+</span>추가 팁</button></div>
     <section id="flow" aria-labelledby="h-flow">
       <p class="step-no">00</p>
       <h2 id="h-flow">오늘의 흐름과 준비</h2>
@@ -1602,6 +1613,48 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var z=doc
   }
 })();
 
+</script>
+<script>
+(function(){
+  var main=document.querySelector('main'); if(!main) return;
+  var secs=[].slice.call(main.querySelectorAll(':scope>section'));
+  var ids=secs.map(function(s){return s.id;});
+  var names={};
+  document.querySelectorAll('.tab-btn').forEach(function(b){ names[b.dataset.tab]=b.textContent; });
+  secs.forEach(function(s,i){
+    if(i<secs.length-1){
+      var d=document.createElement('div'); d.className='tab-next';
+      var nb=document.createElement('button'); nb.type='button'; nb.textContent='다음: '+(names[ids[i+1]]||'')+' →';
+      nb.addEventListener('click',function(){ show(ids[i+1]); });
+      d.appendChild(nb); s.appendChild(d);
+    }
+  });
+  function secOf(el){ while(el && el!==main){ if(el.parentNode===main && el.tagName==='SECTION') return el; el=el.parentNode; } return null; }
+  function show(id, target){
+    secs.forEach(function(s){ s.classList.toggle('tab-off', s.id!==id); });
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.toggle('on', b.dataset.tab===id); b.setAttribute('aria-selected', b.dataset.tab===id?'true':'false'); });
+    document.querySelectorAll('.toc a').forEach(function(a){ a.classList.toggle('on', a.getAttribute('href')==='#'+id); });
+    var el = target && target!==document.getElementById(id) ? target : main;
+    var d = el.closest && el.closest('details'); while(d){ d.open=true; d = d.parentNode && d.parentNode.closest ? d.parentNode.closest('details') : null; }
+    setTimeout(function(){ el.scrollIntoView({block:'start'}); if(el===main) window.scrollTo(0, main.getBoundingClientRect().top + window.scrollY - 10); },0);
+    try{ history.replaceState(null,'','#'+(target && target.id ? target.id : id)); }catch(e){}
+  }
+  function go(hash){
+    var t = hash && document.getElementById(hash.replace(/^#/,''));
+    var s = t ? (ids.indexOf(t.id)>=0 ? t : secOf(t)) : null;
+    if(s) show(s.id, t); else show(ids[0]);
+  }
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.addEventListener('click', function(){ show(b.dataset.tab); }); });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]'); if(!a) return;
+    var h=a.getAttribute('href'); if(h.length<2) return;
+    var t=document.getElementById(h.slice(1)); if(!t) return;
+    var s = ids.indexOf(t.id)>=0 ? t : secOf(t); if(!s) return;
+    e.preventDefault(); show(s.id, t);
+  });
+  window.addEventListener('hashchange', function(){ go(location.hash); });
+  go(location.hash);
+})();
 </script>
 </body>
 </html>
