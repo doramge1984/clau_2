@@ -373,6 +373,29 @@ details.step3-tog{margin:8px 0 18px}
 .ib-grid label{font-size:14px;font-weight:600;color:var(--board);display:flex;flex-direction:column;gap:4px}
 .cards3.cards4{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media (max-width:720px){.ib-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cards3.cards4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.ctree{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#fffdf5,#fbf6e6);padding:18px;margin:14px 0}
+.ct-top{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fff;border:1.5px solid #e2c766;border-radius:12px;box-shadow:0 2px 8px rgba(160,130,40,.12)}
+.ct-top svg{width:40px;height:40px;flex:0 0 auto}
+.ct-top b{display:block;font-size:16.5px;word-break:break-all}
+.ct-top span{display:block;font-size:13.5px;color:var(--muted)}
+.ct-badge{margin-left:auto;font-style:normal;font-size:12.5px;font-weight:700;color:#fff;background:var(--board);border-radius:20px;padding:5px 11px;white-space:nowrap}
+.ct-grid{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.ct-grid::before{content:"";position:absolute;left:16.6%;right:16.6%;top:-12px;border-top:2px dashed #d9c27a}
+.ct-grid::after{content:"";position:absolute;left:50%;top:-22px;height:10px;border-left:2px dashed #d9c27a}
+.ct-class{position:relative;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+.ct-class::before{content:"";position:absolute;left:50%;top:-12px;height:12px;border-left:2px dashed #d9c27a}
+.ct-chead{display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px dashed var(--line)}
+.ct-chead svg{width:30px;height:30px}
+.ct-chead b{font-size:16px}
+.ct-class ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ct-class li{display:flex;align-items:center;gap:8px;padding:5px 7px;border-radius:8px;background:var(--board-soft);font-size:13.5px}
+.ct-class li svg{width:26px;height:26px;flex:0 0 auto}
+.ct-class li small{color:var(--muted);font-size:12px}
+.ct-class li.ct-out{background:#eef7f0;outline:1.5px solid #8cc39b}
+.ct-legend{margin:12px 0 0;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.ct-dot{display:inline-block;width:12px;height:12px;border-radius:3px;background:#eef7f0;outline:1.5px solid #8cc39b}
+@media (max-width:720px){.ct-grid{grid-template-columns:1fr}.ct-grid::before,.ct-grid::after,.ct-class::before{display:none}.ct-badge{display:none}}
 </style>
 </head>
 <body>
@@ -1226,6 +1249,46 @@ details.step3-tog{margin:8px 0 18px}
 <b>이번에는 표 정리만 해 줘. 세특은 아직 쓰지 마.</b></pre>
         </div>
         <p class="mini-note">표가 나오면 열어서 확인하고 고친 뒤 ⑥으로 넘어갑니다.</p>
+      </div>
+      <div class="case-box" id="class-folders">
+        <p><b>여러 반을 한 프로젝트에서: 폴더 하나, 반별 하위 폴더</b></p>
+        <p>프로젝트 하나는 <b>과목 하나·과제 하나</b>로 두고, 연결한 폴더 안을 반별 하위 폴더로 나눕니다. 폴더는 한 번만 연결하면 모든 반 채팅에서 쓰고, 같은 과제라 지침과 평가계획도 다시 넣지 않습니다.</p>
+        <div class="ctree" aria-label="프로젝트에 연결한 폴더 안에 1반, 2반, 3반 하위 폴더가 있고, 반마다 원자료와 정리 엑셀, 세특 초안 엑셀이 들어 있는 그림">
+          <div class="ct-top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6.5A1.5 1.5 0 0 1 3.5 5h5l2 2h10A1.5 1.5 0 0 1 22 8.5v10a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5z" fill="#f2c94c"/><path d="M2 9h20v9.5a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5z" fill="#f6d365"/></svg><div><b>교과세특_정보2학년_바이브코딩</b><span>컨텍스트 → 로컬 폴더 연결로 프로젝트에 한 번만 연결</span></div><em class="ct-badge">프로젝트에 연결</em></div>
+          <div class="ct-grid">
+          <div class="ct-class">
+            <div class="ct-chead"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6.5A1.5 1.5 0 0 1 3.5 5h5l2 2h10A1.5 1.5 0 0 1 22 8.5v10a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5z" fill="#f2c94c"/><path d="M2 9h20v9.5a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5z" fill="#f6d365"/></svg><b>1반</b></div>
+            <ul>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v13.5A1.5 1.5 0 0 1 17.5 22h-11A1.5 1.5 0 0 1 5 20.5v-17A1.5 1.5 0 0 1 6.5 2z" fill="#fff" stroke="#9aa5a0"/><path d="M14 2v5h5" fill="none" stroke="#9aa5a0"/><rect x="5.6" y="13" width="12.8" height="5" rx="1" fill="#c0392b"/><text x="12" y="17" font-size="3.4" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">PDF</text></svg><span>원자료 <small>(스캔본·보고서 등)</small></span></li>
+              <li class="ct-out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v13.5A1.5 1.5 0 0 1 17.5 22h-11A1.5 1.5 0 0 1 5 20.5v-17A1.5 1.5 0 0 1 6.5 2z" fill="#fff" stroke="#9aa5a0"/><path d="M14 2v5h5" fill="none" stroke="#9aa5a0"/><rect x="5.6" y="13" width="12.8" height="5" rx="1" fill="#1d6f42"/><text x="12" y="17" font-size="3.4" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">XLSX</text></svg><span>1반_정리.xlsx</span></li>
+              <li class="ct-out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v13.5A1.5 1.5 0 0 1 17.5 22h-11A1.5 1.5 0 0 1 5 20.5v-17A1.5 1.5 0 0 1 6.5 2z" fill="#fff" stroke="#9aa5a0"/><path d="M14 2v5h5" fill="none" stroke="#9aa5a0"/><rect x="5.6" y="13" width="12.8" height="5" rx="1" fill="#1d6f42"/><text x="12" y="17" font-size="3.4" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">XLSX</text></svg><span>1반_세특초안.xlsx</span></li>
+            </ul>
+          </div>
+          <div class="ct-class">
+            <div class="ct-chead"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6.5A1.5 1.5 0 0 1 3.5 5h5l2 2h10A1.5 1.5 0 0 1 22 8.5v10a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5z" fill="#f2c94c"/><path d="M2 9h20v9.5a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5z" fill="#f6d365"/></svg><b>2반</b></div>
+            <ul>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v13.5A1.5 1.5 0 0 1 17.5 22h-11A1.5 1.5 0 0 1 5 20.5v-17A1.5 1.5 0 0 1 6.5 2z" fill="#fff" stroke="#9aa5a0"/><path d="M14 2v5h5" fill="none" stroke="#9aa5a0"/><rect x="5.6" y="13" width="12.8" height="5" rx="1" fill="#c0392b"/><text x="12" y="17" font-size="3.4" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">PDF</text></svg><span>원자료 <small>(스캔본·보고서 등)</small></span></li>
+              <li class="ct-out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v13.5A1.5 1.5 0 0 1 17.5 22h-11A1.5 1.5 0 0 1 5 20.5v-17A1.5 1.5 0 0 1 6.5 2z" fill="#fff" stroke="#9aa5a0"/><path d="M14 2v5h5" fill="none" stroke="#9aa5a0"/><rect x="5.6" y="13" width="12.8" height="5" rx="1" fill="#1d6f42"/><text x="12" y="17" font-size="3.4" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">XLSX</text></svg><span>2반_정리.xlsx</span></li>
+              <li class="ct-out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v13.5A1.5 1.5 0 0 1 17.5 22h-11A1.5 1.5 0 0 1 5 20.5v-17A1.5 1.5 0 0 1 6.5 2z" fill="#fff" stroke="#9aa5a0"/><path d="M14 2v5h5" fill="none" stroke="#9aa5a0"/><rect x="5.6" y="13" width="12.8" height="5" rx="1" fill="#1d6f42"/><text x="12" y="17" font-size="3.4" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">XLSX</text></svg><span>2반_세특초안.xlsx</span></li>
+            </ul>
+          </div>
+          <div class="ct-class">
+            <div class="ct-chead"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6.5A1.5 1.5 0 0 1 3.5 5h5l2 2h10A1.5 1.5 0 0 1 22 8.5v10a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5z" fill="#f2c94c"/><path d="M2 9h20v9.5a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5z" fill="#f6d365"/></svg><b>3반</b></div>
+            <ul>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v13.5A1.5 1.5 0 0 1 17.5 22h-11A1.5 1.5 0 0 1 5 20.5v-17A1.5 1.5 0 0 1 6.5 2z" fill="#fff" stroke="#9aa5a0"/><path d="M14 2v5h5" fill="none" stroke="#9aa5a0"/><rect x="5.6" y="13" width="12.8" height="5" rx="1" fill="#c0392b"/><text x="12" y="17" font-size="3.4" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">PDF</text></svg><span>원자료 <small>(스캔본·보고서 등)</small></span></li>
+              <li class="ct-out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v13.5A1.5 1.5 0 0 1 17.5 22h-11A1.5 1.5 0 0 1 5 20.5v-17A1.5 1.5 0 0 1 6.5 2z" fill="#fff" stroke="#9aa5a0"/><path d="M14 2v5h5" fill="none" stroke="#9aa5a0"/><rect x="5.6" y="13" width="12.8" height="5" rx="1" fill="#1d6f42"/><text x="12" y="17" font-size="3.4" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">XLSX</text></svg><span>3반_정리.xlsx</span></li>
+              <li class="ct-out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v13.5A1.5 1.5 0 0 1 17.5 22h-11A1.5 1.5 0 0 1 5 20.5v-17A1.5 1.5 0 0 1 6.5 2z" fill="#fff" stroke="#9aa5a0"/><path d="M14 2v5h5" fill="none" stroke="#9aa5a0"/><rect x="5.6" y="13" width="12.8" height="5" rx="1" fill="#1d6f42"/><text x="12" y="17" font-size="3.4" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">XLSX</text></svg><span>3반_세특초안.xlsx</span></li>
+            </ul>
+          </div>
+          </div>
+          <p class="ct-legend"><i class="ct-dot"></i>초록 테두리는 클로드가 새로 만드는 파일입니다. 원자료는 그대로 둡니다.</p>
+        </div>
+        <div class="note"><b class="red-line">요청할 때 반을 꼭 적습니다.</b> 프로젝트에 연결한 폴더는 하위 폴더까지 다 보여서, "정리해 줘"만 하면 세 반을 한꺼번에 읽을 수 있습니다. 결과 파일 이름에도 반을 넣어 두면 파일만 따로 옮겨도 헷갈리지 않습니다.</div>
+        <div class="box">
+          <div class="box-head"><span>반별로 요청하기 (반 번호만 바꾸기)</span><button class="copy" type="button" data-target="p3-class">복사</button></div>
+          <pre id="p3-class"><b>1반 폴더의 자료만</b> 정리해서 '1반_정리.xlsx'로 1반 폴더에 저장해 줘. 이번에는 표 정리만 해 줘. 세특은 아직 쓰지 마.</pre>
+        </div>
+        <p class="mini-note">과제가 다르면(평가계획이 다르면) 하위 폴더가 아니라 <b>프로젝트를 따로</b> 만듭니다. 반마다 원자료가 무거우면(PPT·한글 수십 개) 정리는 2단계처럼 밖에서 하고, 반별 정리 엑셀만 이 폴더에 넣어도 됩니다.</p>
       </div>
       <div class="note"><b>지침에 넣은 건 다시 붙여 넣지 않습니다. 대화창에는 오늘 할 일만.</b>
         긴 세특 지침은 프로젝트에 이미 들어 있어서 이 프로젝트의 모든 대화에 자동으로 적용됩니다. 아래 ⑥의 첫 줄 <b>"프로젝트 지침과 평가계획을 따라 줘"</b>가 그 지침을 불러오는 말이고, 나머지 줄은 지침에 없는 <b>이번 작업만의 당부</b>(고친 표 다시 읽기, 확인불가는 근거로 쓰지 않기, 새 엑셀로 저장, 계획 먼저)입니다.</div>
