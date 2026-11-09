@@ -2623,7 +2623,7 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var z=doc
           build().then(function(blob){
             b.innerHTML = label; b.disabled = false;
             return dl.save({filename: b.dataset.name, data: blob});
-          }).then(function(){ say(/\.zip$/.test(b.dataset.name) ? '파일을 저장했습니다. 압축을 풀어 쓰세요.' : '파일을 저장했습니다.'); }, function(err){
+          }).then(function(){ say(/^seteuk-/.test(b.dataset.name) ? '파일을 저장했습니다. 압축을 풀지 말고 zip 그대로 클로드에 올리세요.' : (/\.zip$/.test(b.dataset.name) ? '파일을 저장했습니다. 압축을 풀어 쓰세요.' : '파일을 저장했습니다.')); }, function(err){
             b.innerHTML = label; b.disabled = false;
             var code = err && err.code;
             if(err && err.message === 'lib') say('파일 도구를 불러오지 못했습니다. 인터넷 연결을 확인하고 다시 눌러 주세요.');
