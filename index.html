@@ -542,6 +542,8 @@ ul.plain li .ic{width:38px;height:38px}
 
 #deck-stage tr.f{transform:none}
 .dt.dmap{table-layout:fixed}.dt.dmap th:first-child,.dt.dmap td:first-child{width:42%}
+
+.zoom img.tall{max-width:none;width:min(900px,96vw);height:auto;margin:0 auto;flex:0 0 auto;align-self:flex-start}
 </style>
 </head>
 <body>
@@ -2059,7 +2061,9 @@ ul.plain li .ic{width:38px;height:38px}
             <button type="button" class="opt-chip" data-v="앞면에 개념, 뒷면에 설명이 있는 낱말 카드 뒤집기">낱말 카드</button>
             <button type="button" class="opt-chip" data-v="단계를 순서대로 끌어다 놓기. 다 놓으면 맞았는지 알려 줘">순서대로 놓기</button>
           </div>
-          <p class="opt-label">내용 <span class="mini-note">(예시 내용이 들어 있습니다. 내 수업 내용으로 바꾸려면 아래 칸에 적으세요)</span></p>
+          <p class="opt-label">주제 <span class="mini-note">(과목을 고르면 바뀝니다)</span></p>
+          <div class="opt-row" id="mo-class-topics"></div>
+          <p class="opt-label">내용 <span class="mini-note">(주제를 고르면 예시 내용이 들어갑니다. 내 수업 내용을 쓰려면 아래 칸에 붙여 넣으세요)</span></p>
           <textarea class="opt-memo" id="mo-class-own" rows="3" placeholder="교과서 내용, 판서, 학습지 내용을 붙여 넣으면 예시 대신 들어갑니다."></textarea>
         </div>
         <div class="box glow">
@@ -2069,6 +2073,7 @@ ul.plain li .ic{width:38px;height:38px}
 - 학생이 폰과 태블릿에서 바로 쓸 수 있게, 글씨는 크게
 - 학생 이름이나 번호는 받지 마
 - 아래 내용에 있는 것만 문제로 내고, 없는 내용은 지어내지 마
+- <b>먼저 문제(카드) 목록만 보여 줘. 내가 확인하면 그때 페이지로 만들어 줘.</b>
 
 [수업 내용]
 <mark class="prm" id="mo-class-body"></mark></pre>
@@ -2614,7 +2619,7 @@ index.html에서 그 파일들을 불러오게 해 줘.</pre>
 document.addEventListener('click',function(e){
   var z=document.querySelector('.zoom'); if(z){ z.remove(); return; }
   var im=e.target.closest('.shot.filled img, .thumb img, .check-shot img, .folder-shot img, .plan-shot img'); if(!im) return;
-  var o=document.createElement('div'); o.className='zoom'; var c=im.cloneNode(); c.alt=im.alt; c.className = im.closest('.plan-shot, .check-shot.wide') ? 'orig' : 'fit'; o.appendChild(c); document.body.appendChild(o);
+  var o=document.createElement('div'); o.className='zoom'; var c=im.cloneNode(); c.alt=im.alt; c.removeAttribute('style'); c.className = (im.naturalHeight > im.naturalWidth*1.4) ? 'tall' : (im.closest('.plan-shot, .check-shot.wide') ? 'orig' : 'fit'); o.appendChild(c); document.body.appendChild(o);
 });
 document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var z=document.querySelector('.zoom'); if(z) z.remove(); } });
 </script>
@@ -2863,14 +2868,7 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var z=doc
     career: "1학년 진로체험의 날 안내 (가상 안내장)\n11월 25일(수) 1~7교시 · 교내 강당과 각 교실\n대상 1학년 전체 · 비용 없음 · 점심은 정상 급식\n1~2교시 직업인 특강(강당)\n3~6교시 학과 체험 부스 두 곳 선택(각 교실)\n7교시 진로 활동지 작성(학급)\n부스 신청은 11월 18일(수)까지 학급 온라인 설문으로\n준비물: 필기도구, 진로 포트폴리오 파일",
     admission: "1·2학년 학부모 대입 설명회 안내 (가상 안내장)\n12월 10일(목) 18:30~20:00 · 본관 4층 시청각실\n대상 1·2학년 학부모 (자녀 동반 가능)\n내용: 우리 학교 진학 지도 방향, 학교생활기록부 관리 방법, 질의응답\n신청은 12월 4일(금)까지 가정통신문 회신서 또는 온라인 설문으로\n교내 주차 공간이 좁으니 대중교통 이용을 부탁드립니다"
   };
-  var CLASS = {
-    "국어": "음운 변동에는 교체, 탈락, 첨가, 축약이 있다.\n비음화: 받침 'ㄱ, ㄷ, ㅂ'이 비음 'ㄴ, ㅁ' 앞에서 'ㅇ, ㄴ, ㅁ'으로 바뀐다. (국물→[궁물], 닫는→[단는], 밥물→[밤물])\n유음화: 'ㄴ'이 'ㄹ'의 앞이나 뒤에서 'ㄹ'로 바뀐다. (신라→[실라], 칼날→[칼랄])\n구개음화: 받침 'ㄷ, ㅌ'이 모음 'ㅣ' 앞에서 'ㅈ, ㅊ'으로 바뀐다. (굳이→[구지], 같이→[가치])\n거센소리되기: 'ㅎ'과 'ㄱ, ㄷ, ㅂ, ㅈ'이 만나 'ㅋ, ㅌ, ㅍ, ㅊ'이 된다. (좋고→[조코])",
-    "수학": "나머지정리: 다항식 f(x)를 일차식 x−a로 나눈 나머지는 f(a)이다.\n인수정리: f(a)=0이면 f(x)는 x−a로 나누어떨어진다.\n예: f(x)=x³−2x+1을 x−1로 나눈 나머지는 f(1)=0이므로 x−1은 f(x)의 인수이다.\n예: f(x)=x²+3x+5를 x+2로 나눈 나머지는 f(−2)=3이다.",
-    "영어": "관계대명사 who는 사람, which는 사물과 동물을 선행사로 받는다.\nthat은 사람과 사물을 모두 받지만, 콤마 뒤(계속적 용법)와 전치사 바로 뒤에는 쓰지 않는다.\nwhat은 선행사를 포함하며 '~하는 것'으로 해석한다.\n예: The girl who lives next door is my friend. / This is the book which I bought yesterday. / What I want is your honest opinion.",
-    "통합사회": "시장 실패는 시장 가격 기구가 자원을 효율적으로 배분하지 못하는 현상이다.\n원인: 독과점(공급자가 가격을 좌우함), 외부 효과(제3자에게 대가 없이 이익이나 손해를 줌. 공장 매연은 부정적 외부 효과, 과수원 옆 양봉은 긍정적 외부 효과), 공공재(비배제성과 비경합성 때문에 무임승차 문제가 생겨 충분히 공급되지 않음. 국방, 가로등), 정보의 비대칭성.\n정부는 규제, 세금과 보조금, 공공재의 직접 공급으로 시장 실패를 보완한다.",
-    "통합과학": "산은 수용액에서 수소 이온(H⁺)을, 염기는 수산화 이온(OH⁻)을 내놓는다.\n중화 반응: H⁺ + OH⁻ → H₂O. 중화 반응이 일어나면 열이 발생한다(중화열).\nBTB 용액은 산성에서 노란색, 중성에서 초록색, 염기성에서 파란색이다.\n페놀프탈레인 용액은 염기성에서 붉은색, 산성과 중성에서 무색이다.\n생활 속 예: 위산이 많을 때 제산제를 먹는다, 산성화된 토양에 석회 가루를 뿌린다.",
-    "정보": "선택 정렬: 정렬되지 않은 부분에서 가장 작은 값을 찾아 그 부분의 맨 앞 값과 바꾸는 과정을 반복한다.\n버블 정렬: 이웃한 두 값을 비교해 순서가 틀리면 바꾼다. 한 바퀴를 돌면 가장 큰 값이 맨 뒤로 간다.\n기본 구현에서 n개를 정렬할 때 두 방법 모두 비교 횟수는 n(n−1)/2번이다.\n예: [5, 2, 4, 1]을 선택 정렬하면 첫 회전 뒤 [1, 2, 4, 5]가 된다."
-  };
+  var CLASS = {"국어": [["음운 변동", "음운 변동에는 교체, 탈락, 첨가, 축약이 있다.\n비음화: 받침 'ㄱ, ㄷ, ㅂ'이 비음 'ㄴ, ㅁ' 앞에서 'ㅇ, ㄴ, ㅁ'으로 바뀐다. (국물→[궁물], 닫는→[단는], 밥물→[밤물])\n유음화: 'ㄴ'이 'ㄹ'의 앞이나 뒤에서 'ㄹ'로 바뀐다. (신라→[실라], 칼날→[칼랄])\n구개음화: 받침 'ㄷ, ㅌ'이 모음 'ㅣ' 앞에서 'ㅈ, ㅊ'으로 바뀐다. (굳이→[구지], 같이→[가치])\n거센소리되기: 'ㅎ'과 'ㄱ, ㄷ, ㅂ, ㅈ'이 만나 'ㅋ, ㅌ, ㅍ, ㅊ'이 된다. (좋고→[조코])"], ["품사", "품사는 형태·기능·의미에 따라 9가지로 나눈다. 체언(명사, 대명사, 수사), 용언(동사, 형용사), 수식언(관형사, 부사), 관계언(조사), 독립언(감탄사).\n동사와 형용사는 활용한다. 동사는 '-는다/-ㄴ다'와 결합하고 명령형·청유형이 가능하지만, 형용사는 대체로 그렇지 않다. (먹는다 ○ / 예쁜다 ×)\n관형사는 체언을 꾸미고 활용하지 않는다. (새 책, 헌 옷)"], ["📎 내 자료 첨부", "(첨부한 교과서·학습지·판서 파일의 내용으로 만들어 줘. 파일을 입력창에 끌어다 놓고 보내기)"]], "수학": [["나머지정리", "나머지정리: 다항식 f(x)를 일차식 x−a로 나눈 나머지는 f(a)이다.\n인수정리: f(a)=0이면 f(x)는 x−a로 나누어떨어진다.\n예: f(x)=x³−2x+1을 x−1로 나눈 나머지는 f(1)=0이므로 x−1은 f(x)의 인수이다.\n예: f(x)=x²+3x+5를 x+2로 나눈 나머지는 f(−2)=3이다."], ["근과 계수의 관계", "이차방정식 ax²+bx+c=0(a≠0)의 두 근을 α, β라 하면 α+β=−b/a, αβ=c/a이다.\n예: x²−5x+6=0의 두 근의 합은 5, 곱은 6이다(두 근은 2와 3).\n판별식 D=b²−4ac가 0보다 크면 서로 다른 두 실근, 0이면 중근, 0보다 작으면 서로 다른 두 허근을 갖는다."], ["📎 내 자료 첨부", "(첨부한 교과서·학습지·판서 파일의 내용으로 만들어 줘. 파일을 입력창에 끌어다 놓고 보내기)"]], "영어": [["관계대명사", "관계대명사 who는 사람, which는 사물과 동물을 선행사로 받는다.\nthat은 사람과 사물을 모두 받지만, 콤마 뒤(계속적 용법)와 전치사 바로 뒤에는 쓰지 않는다.\nwhat은 선행사를 포함하며 '~하는 것'으로 해석한다.\n예: The girl who lives next door is my friend. / This is the book which I bought yesterday. / What I want is your honest opinion."], ["현재완료", "현재완료는 have/has + 과거분사로, 과거의 일이 현재와 관련 있을 때 쓴다.\n경험: I have visited Jeju twice. / 계속: She has lived here since 2020. / 완료: I have just finished my homework. / 결과: He has lost his key.\nyesterday, last year, ago처럼 과거의 특정 시점을 나타내는 말과는 함께 쓰지 않는다."], ["📎 내 자료 첨부", "(첨부한 교과서·학습지·판서 파일의 내용으로 만들어 줘. 파일을 입력창에 끌어다 놓고 보내기)"]], "통합사회": [["시장 실패", "시장 실패는 시장 가격 기구가 자원을 효율적으로 배분하지 못하는 현상이다.\n원인: 독과점(공급자가 가격을 좌우함), 외부 효과(제3자에게 대가 없이 이익이나 손해를 줌. 공장 매연은 부정적 외부 효과, 과수원 옆 양봉은 긍정적 외부 효과), 공공재(비배제성과 비경합성 때문에 무임승차 문제가 생겨 충분히 공급되지 않음. 국방, 가로등), 정보의 비대칭성.\n정부는 규제, 세금과 보조금, 공공재의 직접 공급으로 시장 실패를 보완한다."], ["인권과 기본권", "인권은 인간이라면 누구나 누려야 할 기본적 권리이며 보편성, 천부성, 불가침성, 항구성을 가진다.\n헌법이 보장하는 기본권에는 자유권, 평등권, 참정권, 사회권, 청구권이 있다.\n기본권은 국가 안전 보장·질서 유지·공공복리를 위해 필요한 경우에 한해 법률로 제한할 수 있으나, 본질적인 내용은 침해할 수 없다(헌법 제37조 제2항)."], ["📎 내 자료 첨부", "(첨부한 교과서·학습지·판서 파일의 내용으로 만들어 줘. 파일을 입력창에 끌어다 놓고 보내기)"]], "통합과학": [["산과 염기의 중화", "산은 수용액에서 수소 이온(H⁺)을, 염기는 수산화 이온(OH⁻)을 내놓는다.\n중화 반응: H⁺ + OH⁻ → H₂O. 중화 반응이 일어나면 열이 발생한다(중화열).\nBTB 용액은 산성에서 노란색, 중성에서 초록색, 염기성에서 파란색이다.\n페놀프탈레인 용액은 염기성에서 붉은색, 산성과 중성에서 무색이다.\n생활 속 예: 위산이 많을 때 제산제를 먹는다, 산성화된 토양에 석회 가루를 뿌린다."], ["원소의 주기성", "주기율표에서 같은 족 원소는 원자가 전자 수가 같아 화학적 성질이 비슷하다.\n1족 알칼리 금속(Li, Na, K)은 물과 반응해 수소 기체를 낸다. 17족 할로젠(F, Cl, Br)은 반응성이 큰 비금속이다.\n18족 비활성 기체(He, Ne, Ar)는 가장 바깥 전자 껍질이 채워져 있어 반응성이 거의 없다. 같은 주기 원소는 전자 껍질 수가 같다."], ["📎 내 자료 첨부", "(첨부한 교과서·학습지·판서 파일의 내용으로 만들어 줘. 파일을 입력창에 끌어다 놓고 보내기)"]], "정보": [["정렬 알고리즘", "선택 정렬: 정렬되지 않은 부분에서 가장 작은 값을 찾아 그 부분의 맨 앞 값과 바꾸는 과정을 반복한다.\n버블 정렬: 이웃한 두 값을 비교해 순서가 틀리면 바꾼다. 한 바퀴를 돌면 가장 큰 값이 맨 뒤로 간다.\n기본 구현에서 n개를 정렬할 때 두 방법 모두 비교 횟수는 n(n−1)/2번이다.\n예: [5, 2, 4, 1]을 선택 정렬하면 첫 회전 뒤 [1, 2, 4, 5]가 된다."], ["이진 탐색", "이진 탐색은 정렬된 자료에서 가운데 값과 찾는 값을 비교해 탐색 범위를 절반씩 줄여 나가는 방법이다.\n찾는 값이 가운데 값보다 작으면 왼쪽 절반, 크면 오른쪽 절반에서 다시 찾는다. 자료가 정렬되어 있지 않으면 쓸 수 없다.\n자료가 n개일 때 최악의 비교 횟수는 약 log₂n번이다. 예: 1부터 100까지 정렬된 수에서 한 수를 찾을 때 최대 7번 비교하면 찾는다."], ["📎 내 자료 첨부", "(첨부한 교과서·학습지·판서 파일의 내용으로 만들어 줘. 파일을 입력창에 끌어다 놓고 보내기)"]]};
   function txt(id, v){ var el = document.getElementById(id); if(el) el.textContent = v; }
   var np = document.getElementById('mo-notice-opt');
   if(np){
@@ -2889,10 +2887,22 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var z=doc
   if(cp){
     var cown = document.getElementById('mo-class-own');
     var val = function(g){ var b = cp.querySelector('[data-g="' + g + '"] .opt-chip.on'); return b ? b.dataset.v : ''; };
+    var trow = document.getElementById('mo-class-topics'), ti = 0, lastS = '';
+    var drawTopics = function(s){
+      trow.innerHTML = '';
+      (CLASS[s] || []).forEach(function(tp, k){
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'opt-chip' + (k === ti ? ' on' : '');
+        b.setAttribute('aria-pressed', k === ti ? 'true' : 'false'); b.textContent = tp[0];
+        b.addEventListener('click', function(){ ti = k; drawTopics(s); cupd(); });
+        trow.appendChild(b);
+      });
+    };
     var cupd = function(){
       var s = val('subj');
-      txt('mo-class-who', val('grade')); txt('mo-class-subj', s); txt('mo-class-act', val('act'));
-      txt('mo-class-body', cown.value.trim() || CLASS[s] || '');
+      if(s !== lastS){ ti = 0; lastS = s; drawTopics(s); }
+      var tp = (CLASS[s] || [])[ti] || ['', ''];
+      txt('mo-class-who', val('grade')); txt('mo-class-subj', s + (ti < 2 ? ' · ' + tp[0] : '')); txt('mo-class-act', val('act'));
+      txt('mo-class-body', cown.value.trim() || tp[1]);
     };
     cp.querySelectorAll('.opt-row[data-g]').forEach(function(row){
       row.querySelectorAll('.opt-chip').forEach(function(b){
